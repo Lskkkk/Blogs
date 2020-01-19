@@ -110,7 +110,7 @@ const useEffectT = (callback, watch) => {
     if (!watches[currentIndex]) {
         watches[currentIndex] = watch;
     }
-    if (watches[currentIndex] === undefined) { // didUpdate
+    if (watches[currentIndex] === undefined) { // didMount+didUpdate
         lastCleanEffect[currentIndex] = callback();
     } else if (watches[currentIndex].length === 0) { // didMount
         if (isFirstRender) {
