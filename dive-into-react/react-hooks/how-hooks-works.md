@@ -8,7 +8,7 @@
 - react hooks使用链表结构，串联所有的hooks，保证hooks的执行；
 ````
 type Hooks = {
-	memoizedState: any, // 指向当前渲染节点 Fiber
+    memoizedState: any, // 指向当前渲染节点 Fiber
     baseState: any, // 初始化 initialState， 已经每次 dispatch 之后 newState
     baseUpdate: Update<any> | null,// 当前需要更新的 Update，每次更新完之后，会赋值上一个 update，方便 react 在渲染错误的边缘，数据回溯
     queue: UpdateQueue<any> | null,// UpdateQueue 通过
@@ -26,7 +26,8 @@ type Effect = {
 - hooks的值存在于memoizedState中，每次rerender时，如果已经存在，则不会重新创建，继续使用存在的值，就保证了记忆功能；
 
 ## 实现
-以useState为例，其需求如下：
+可运行Demo：[github](https://github.com/Lskkkk/Demo/tree/master/tiny-hooks-demo)  
+一步一步来，以useState为例，其需求如下：
 - 输入参数为initialState，返回state值和setState的数组
 - 后续组件rerender不会修改state值，state只能有setState修改  
 
