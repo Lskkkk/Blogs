@@ -9,4 +9,4 @@
 - [函数作为参数时的作用域问题](./dive-into-js/function-as-param.md)
 
 # 开发总结
-- [如何创建一个脚手架工具(CLI)](./develop/cli.md/how-to-build-a-cli.md)
+- [如何创建一个脚手架工具(CLI)](./develop/cli/how-to-build-a-cli.md)
