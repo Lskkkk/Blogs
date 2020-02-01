@@ -10,3 +10,6 @@
 
 # 开发总结
 - [如何创建一个脚手架工具(CLI)](./develop/cli/how-to-build-a-cli.md)
+
+# 设计
+- [JavaScript设计模式](./design/design-pattern/design-pattern.md)
