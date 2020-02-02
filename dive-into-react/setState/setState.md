@@ -101,8 +101,8 @@ export default class SyncTest extends React.Component {
 ````
 
 ## 批量更新
-- 当setState同时对同一个值进行更新时，只有最后一个应用会生效；
-- 当setState同时对不同的值进行更新时，会合并多个更新为一次；
+- 多次setState会合并，统一更新后再rerender；
+- 使用受上面异步的影响，对同一值使用setState只会应用一次，要应用多次，setState时需要传入Updater Function；
 
 ````
 import * as React from 'react';
@@ -113,23 +113,30 @@ export default class QueueTest extends React.Component {
         this.refresh = 0;
         this.state = {
             queueCount: 0,
-            anotherCount: 0
+            anotherCount: 0,
+            funcCount: 0
         };
     }
 
     componentDidMount() {
-        // 多次对同一个值setState会只应用最后一个
+        // 多次对同一个值setState，每次this.state.queueCount值都是一样的，看起来只应用了一次
         this.setState({ queueCount: this.state.queueCount + 1 });
         this.setState({ queueCount: this.state.queueCount + 1 });
         this.setState({ queueCount: this.state.queueCount + 1 });
 
+        // 使用callback对setState，state值更新完后才执行下一个，因此都能更新
+        this.setState((state) => ({ funcCount: state.funcCount + 1 }));
+        this.setState((state) => ({ funcCount: state.funcCount + 1 }));
+        this.setState((state) => ({ funcCount: state.funcCount + 1 }));
+
         // 同时对不同的值setState则不受影响
         this.setState({ anotherCount: this.state.anotherCount + 1 });
+
     }
 
     render() {
         console.log(`refresh count: ${++this.refresh}`);
-        console.log(`queueCount: ${this.state.queueCount}, anotherCount: ${this.state.anotherCount}`);
+        console.log(JSON.stringify(this.state));
         return (
             <div id={'sync'} style={{ width: 400, height: 100, background: '#0193' }}>
                 queue test
@@ -140,10 +147,10 @@ export default class QueueTest extends React.Component {
 
 // 输出：
 // refresh count: 1
-// queueCount: 0, anotherCount: 0
+// {"queueCount":0,"anotherCount":0,"funcCount":0}
 
 // refresh count: 2
-// queueCount: 1, anotherCount: 1
+// {"queueCount":1,"anotherCount":1,"funcCount":3}
 ````
 
 ## 参考
