@@ -116,6 +116,9 @@ ReactDOM.hydrate(<App />, document.getElementById('root'));
 1. 主动调用ReactDOM.hydrate；
 2. 即使使用了ReactDOM.render，React也会判断是否组件是否是普通的element并且具有data-reactroot(服务端渲染时添加)的属性；
 
+## 注意事项
+- 服务端渲染只会执行首次渲染，即constructor - getDerivedStateFromProps - render，因此如果有网络请求不要放在这几个生命周期中，以免造成内存泄漏；
+
 ## Next.js
 > [Next.js](https://nextjs.frontendx.cn/) 是一个轻量级的 React 服务端渲染应用框架。
 
