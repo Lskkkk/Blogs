@@ -4,6 +4,7 @@
 - [React Virtual Dom与Dom Diff算法](dive-into-react/react-virtual-dom-diff/react-virtual-dom-diff.md)
 - [setState详解](dive-into-react/setState/setState.md)
 - [React新的生命周期](./dive-into-react/react-new-lifecycle/react-new-lifecycle.md)
+- [React同构渲染](./dive-into-react/react-isomorphic-render/react-isomorphic-render.md)
 
 # JavaScript深入系列
 - [函数作为参数时的作用域问题](./dive-into-js/function-as-param.md)
