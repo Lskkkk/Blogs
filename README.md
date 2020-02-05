@@ -14,3 +14,4 @@
 
 # 设计
 - [JavaScript设计模式](./design/design-pattern/design-pattern.md)
+- [MV*设计模式](./design/MV*/MV*.md)
