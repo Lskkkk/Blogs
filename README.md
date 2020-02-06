@@ -8,6 +8,7 @@
 
 # JavaScript深入系列
 - [函数作为参数时的作用域问题](./dive-into-js/function-as-param.md)
+- [JavaScript并发模型与时间循环](./dive-into-js/event-loop/event-loop.md)
 
 # 开发总结
 - [如何创建一个脚手架工具(CLI)](./develop/cli/how-to-build-a-cli.md)
