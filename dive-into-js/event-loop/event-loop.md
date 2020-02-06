@@ -140,7 +140,7 @@ Promise.resolve().then(() => {
 都是在 <b>单个</b> 宏任务执行完后执行微任务队列；
 
 ## 总结
-- JavaScript运行时分为Stack、Heap、Web API、Queue；
+- JavaScript运行时模型包括Stack、Heap、Web API、Queue；
 - 宏任务包括 setTimeout、setInterval、script（整体代码）、 I/O 操作、UI 渲染等；
 - 微任务包括 Promise，process.nextTick(仅Node)；
 - 同步任务 > 微任务 > 宏任务；
