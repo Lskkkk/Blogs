@@ -38,31 +38,36 @@ P层会如预计的那般体积变得很大，难以维护。
 这种设计之前在Native应用较多，前端用的不多，因为前端框架直接使用了MVVM。
 
 ## MVVM
-VM指的是View Model，它的作用是绑定V与M层，使它们自动的相互更新；即视图改变，通知VM，VM自动改变Model中的数据，Model改变也通知VM随后自动更新视图；
+VM指的是View Model，它的作用是创建一个和View相关的对象，该对象的属性与View所需要的数据和命令一一对应，并且负责将Model转换成该对象，同时，也能在自身修改之后调用Model的方法更新数据。
 
 关系如下：
 ![](./mvvm.png)
 
-除了更加的解耦之外，由于V和M都只通知修改VM中的对象，因此V和M是并不知道互相的存在的，这是一个非常松耦合的设计。
+这样设计就使得VM和View是绑定的，修改View即改变了VM，修改VM后View也会更新。所以，完全可以用VM代替View去进行测试，这就是从界面到数据的转换。
 
-目前许多前端框架或库都使用了MVVM或者类MVVM的设计，如Angular、Vue、MobX等；
+由于V和M都只通知修改VM中的对象，因此V和M是并不知道互相的存在的，这是一个非常松耦合的设计。
+
+一般地，现代框架会完成双向绑定的步骤，需要注意的是，双向绑定是在VM和View中进行的；以Vue为例，所以在 new Vue() 的过程中，传入的是VM和View，而Model，一般会与VM结合，或独立存在。
+
+目前许多前端框架或库都使用了MVVM或者类MVVM的设计，如Angular、Vue等；
+
+它们都实现了双向绑定，有以下几种模式：
+- 代理/数据劫持+发布-订阅（Vue）
+
+  在Vue3中，使用了Proxy代理对象；在不支持Proxy的环境，继续和Vue2一样使用Object.defineProperty定义getter、setter，监控对象的改变。造成这一改变的原因是defineProperty监控不到新增属性、数组元素和长度变化。
+- 发布-订阅（Knockout、Backbone）
+- 脏值检测（Angular）
+  
+  在需要修改的时机（如按钮点击）检查整个组件树是否有值变化，收集变化，调用对应的更新方法。
+
+关于Vue的实现，在[此文章](./../MVVM/MVVM.md)详细展开。
 
 ## Flux、Redux 与 MVC
 单向数据流是MVC模式的一个变种，主要解决了数据流混乱的问题。Flux的流程如下：
 ![](./flux.png)
-行为修改数据只能由Action出发，经由Dispatcher修改Store中的数据，紧接着由Store更新界面视图。
+行为修改数据只能由Action出发，经由Dispatcher修改Store中的数据，Store会通知View修改界面，一般是注册的监听函数。
 
 在解决了数据流混乱的问题后，这种模式将数据变化变为可控，因此Redux得到了大规模的流行与应用。
-
-## MobX 与 MVVM
-MobX是一个实现了MVVM核心的状态管理库。它与配套的工具（如mobx-react）一起实现了完整的MVVM框架。
-
-以在React上的应用为例，一个项目的组成包括MobX、React、mobx-react，其中：
-- MobX提供的observable等构成的对象为M层，控制所有数据模型；
-- React为V层，实现界面；
-- mobx-react即MobX的一些方法为VM层，当数据更新时自动更新视图，并且React可通过MobX的action修改M层的数据。
-
-MobX的实现细节如依赖收集、依赖调用也代表了MVVM的一些实现原理，具体可以参考[此文章](../../framework/mobx/mvvm-in-mobx.md)。
 
 ## Angular、Vue、React
 在介绍完上面的设计模式后，我们可能会有这样的疑问，常说的前端三大框架究竟是哪种模式？
@@ -74,9 +79,9 @@ Angular其实不太了解，但是根据网上的[文章](https://cloud.tencent.
 Vue中包含了MVVM的数据绑定，它部分参考了MVVM，但并没有完全的遵照MVVM去设计。具体可参考[此文章](https://www.zhihu.com/question/327050991);
 
 ### React
-React其实就是一个实现V层的库。结合各个周边框架，就能遵循不同的设计模式。
+React其实就是一个实现View层的库。结合各个周边框架，就能遵循不同的设计模式。
 - 如果使用redux-react，就是MVC，或者单项数据流。
-- 如果使用mobx-react，即实现了MVVM。
+- 如果使用一些view model的库，即采用了MVVM。
 
 但是单独使用React，并没有遵循哪种模式。
 
@@ -89,3 +94,4 @@ React其实就是一个实现V层的库。结合各个周边框架，就能遵�
 - [前端框架模式的变迁](https://github.com/laizimo/zimo-article/issues/28)
 - [Angular与MVVM框架](https://cloud.tencent.com/developer/article/1015788)
 - [为什么说VUE没有完全遵循MVVM？](https://www.zhihu.com/question/327050991)
+- [浅析前端开发中的 MVC/MVP/MVVM 模式](https://zhuanlan.zhihu.com/p/27302766)
