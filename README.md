@@ -18,5 +18,5 @@
 - [MV*设计模式](./design/MV*/MV*.md)
 
 # 框架
-- [MVVM实现](./framework/MVVM-in-Vue/MVVM.md)
+- [Vue中的双向绑定MVVM原理解析](./framework/MVVM-in-Vue/MVVM.md)
 - [MobX响应式原理](./framework/reactive-in-MobX/dive-into-MobX.md)
