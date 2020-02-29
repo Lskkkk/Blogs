@@ -9,6 +9,8 @@
 # JavaScript深入系列
 - [函数作为参数时的作用域问题](./dive-into-js/function-as-param.md)
 - [JavaScript并发模型与时间循环](./dive-into-js/event-loop/event-loop.md)
+- [闭包](./dive-into-js/closure/closure.md)
+- [ES6的一些记录](./dive-into-js/es6/es6.md)
 
 # 开发总结
 - [如何创建一个脚手架工具(CLI)](./develop/cli/how-to-build-a-cli.md)
@@ -23,4 +25,3 @@
   
 # TODO
 - [React Suspense](./dive-into-react/react-suspense/suspense.md)
-- [ES6 部分API](./dive-into-js/es6/es6.md)
